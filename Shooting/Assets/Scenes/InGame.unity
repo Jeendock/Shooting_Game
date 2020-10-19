@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefap: {fileID: 5815874018099201112, guid: c362f6a1a58b9394f9ca1663d6772d71,
     type: 3}
-  bulletDelay: 10
+  bulletDelay: 20
 --- !u!212 &735237676
 SpriteRenderer:
   m_ObjectHideFlags: 0
