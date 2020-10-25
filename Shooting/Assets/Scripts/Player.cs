@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,20 +9,40 @@ public class Player : MonoBehaviour
     public int bulletDelay = 20;
     private int bulletDelayCount = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    private float defaultY;
+
+    private void Start()
     {
-        
+        defaultY = transform.position.y;
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            transform.position = transform.position + new Vector3(-0.08f, 0);
+        if (Input.GetMouseButton(0))
+        {
+            var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var diff = transform.position.x - worldPosition.x;
+            if (Mathf.Abs(diff) < 0.5f)
+            {
+                transform.position = new Vector2(worldPosition.x, defaultY);
+            }
+            else
+            {
+                transform.position = new Vector2(diff / 5.0f, defaultY);
+            }
+        }
 
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            transform.position = transform.position + new Vector3(0.08f, 0);
+        //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        //    transform.position = transform.position + new Vector3(-0.08f, 0);
 
+        //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        //    transform.position = transform.position + new Vector3(0.08f, 0);
+
+        Fire();
+    }
+
+    private void Fire()
+    {
         bulletDelayCount++;
         if (bulletDelayCount >= bulletDelay)
         {
