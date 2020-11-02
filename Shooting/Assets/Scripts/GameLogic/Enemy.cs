@@ -31,6 +31,8 @@ public class Enemy : CollisionObject
             //enemeyObject.transform.position = transform.position;
             //Destroy(gameObject);
 
+            GameHUD.Instance.AddScore(10);
+
             Invoke("DestroySelf", 0.4f);
         }
     }
