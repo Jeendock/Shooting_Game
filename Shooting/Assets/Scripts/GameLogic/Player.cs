@@ -1,54 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
+using DG.Tweening;
 
-public class Player : MonoBehaviour
+public class Player : CollisionObject
 {
-    public GameObject BulletPrefap;
-    public int bulletDelay = 20;
-    private int bulletDelayCount = 0;
+    public GameObject bullet_Prefab;
+    public int bullet_Term = 10;
+    public float MovementSpeed = 0.1f;
 
+    [SerializeField]
+    private List<GameObject> fires;
+
+    private int bullet_Term_Count = 0;
     private float defaultY;
 
-    private void Start()
+    private void Awake()
     {
-        defaultY = transform.position.y;
+        defaultY = transform.position.y + 2.5f;
+
+        foreach (var fireObject in fires)
+        {
+            var fireSequence = DOTween.Sequence();
+            fireSequence.Append(fireObject.transform.DOScaleY(1.5f, 0.2f));
+            fireSequence.Append(fireObject.transform.DOScaleY(1.0f, 0.2f));
+            fireSequence.SetLoops(-1);
+        }
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
+        MovementVector = Vector2.zero;
+
         if (Input.GetMouseButton(0))
         {
             var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var diff = transform.position.x - worldPosition.x;
-            if (Mathf.Abs(diff) < 0.5f)
-            {
-                transform.position = new Vector2(worldPosition.x, defaultY);
-            }
+            var diff = worldPosition.x - transform.position.x;
+
+            if (Mathf.Abs(diff) < 0.05f)
+                transform.position = new Vector3(worldPosition.x, defaultY, 0);
             else
-            {
-                transform.position = new Vector2(diff / 5.0f, defaultY);
-            }
+                MovementVector = new Vector2(diff / 5, 0);
         }
 
-        //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        //    transform.position = transform.position + new Vector3(-0.08f, 0);
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.position = transform.position + new Vector3(-0.1f, 0);
+        }
 
-        //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        //    transform.position = transform.position + new Vector3(0.08f, 0);
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.position = transform.position + new Vector3(0.1f, 0);
+        }
 
-        Fire();
+        if (bullet_Term_Count++ > bullet_Term)
+        {
+            Fire();
+
+            bullet_Term_Count = 0;
+        }
     }
 
     private void Fire()
     {
-        bulletDelayCount++;
-        if (bulletDelayCount >= bulletDelay)
-        {
-            var bulletObject = Instantiate(BulletPrefap);
-            bulletObject.transform.position = transform.position;
-            bulletDelayCount = 0;
-        }
+        var bullet_Object = Instantiate(bullet_Prefab);
+        bullet_Object.transform.position = transform.position;
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
     }
 }

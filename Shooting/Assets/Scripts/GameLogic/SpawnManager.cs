@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public int EnemyTerm = 20;
-    private int enemeyTermCount = 0;
+    private int enemyTermCount = 0;
 
     private void Start()
     {
@@ -13,11 +13,14 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
-        enemeyTermCount++;
-        if (enemeyTermCount > EnemyTerm)
+        if (!GameScene.Instance.IsGameStart)
+            return;
+
+        enemyTermCount++;
+        if (enemyTermCount > EnemyTerm)
         {
             Spawn();
-            enemeyTermCount = 0;
+            enemyTermCount = 0;
         }
     }
 

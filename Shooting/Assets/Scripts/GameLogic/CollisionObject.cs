@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public abstract class CollisionObject : MonoBehaviour
 {
     public Vector2 MovementVector;
 
-    private void Update()
+    protected virtual void Update()
     {
         transform.Translate(MovementVector);
     }
+
+    protected abstract void OnCollisionEnter(Collision collision);
 }
