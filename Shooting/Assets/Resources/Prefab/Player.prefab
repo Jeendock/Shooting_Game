@@ -173,7 +173,8 @@ GameObject:
   - component: {fileID: 4355212931846238705}
   - component: {fileID: 4355212931846238704}
   - component: {fileID: 4355212931846238711}
-  - component: {fileID: 4355212931846238707}
+  - component: {fileID: 4837212538917667908}
+  - component: {fileID: 5519976709660901760}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4355212931846238710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 955379330051150023}
@@ -235,7 +236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 45d8511a685035546b229f9985952ea9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -260,30 +261,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementVector: {x: 0, y: 0}
-  BulletPrefap: {fileID: 5815874018099201112, guid: c362f6a1a58b9394f9ca1663d6772d71,
+  bullet_Prefab: {fileID: 5815874018099201112, guid: c362f6a1a58b9394f9ca1663d6772d71,
     type: 3}
-  bulletDelay: 5
+  bullet_Term: 10
+  MovementSpeed: 0.1
   fires:
   - {fileID: 1511343226151261010}
   - {fileID: 4158024529236496286}
---- !u!50 &4355212931846238707
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!54 &4837212538917667908
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4355212931846238710}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_Constraints: 126
   m_CollisionDetection: 0
-  m_Constraints: 7
+--- !u!136 &5519976709660901760
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355212931846238710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 0.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

@@ -16,15 +16,20 @@ public class Enemy : CollisionObject
 
         MovementVector = new Vector2(0, -0.07f);
 
-        var sprite = Resources.Load<Sprite>($"Images/Enemies/{ enemyData.ImageName}") as Sprite;
+        var sprite = Resources.Load<Sprite>($"Images/Enemies/{ enemyData.ImageName}");
         GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<Player>() != null)
         {
             Destroy(collision.gameObject);
+            GameScene.Instance.GameOver();
+        }
+        else if (collision.gameObject.name == "Wall")
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -36,23 +41,19 @@ public class Enemy : CollisionObject
             var destroyEffectPrefab = Resources.Load("Prefab/Explosive") as GameObject;
             var enemeyObject = Instantiate(destroyEffectPrefab, transform);
 
-            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
             //enemeyObject.transform.position = transform.position;
             //Destroy(gameObject);
 
             GameHUD.Instance.AddScore(enemyData.Score);
 
-            Invoke("DestroySelf", 0.4f);
+            Invoke("DestorySelf", 1f);
         }
     }
 
     private void DestorySelf()
     {
         Destroy(gameObject);
-    }
-
-    protected override void OnCollisionEnter(Collision collision)
-    {
     }
 }

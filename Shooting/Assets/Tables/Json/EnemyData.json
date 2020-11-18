@@ -1,0 +1,34 @@
+{
+	"EnemyData": [
+		{
+			"key": 1,
+			"Hp": 5,
+			"Score": 10,
+			"ImageName": "enemyBlack2"
+		},
+		{
+			"key": 2,
+			"Hp": 6,
+			"Score": 20,
+			"ImageName": "enemyBlack2"
+		},
+		{
+			"key": 3,
+			"Hp": 7,
+			"Score": 30,
+			"ImageName": "enemyBlack3"
+		},
+		{
+			"key": 4,
+			"Hp": 8,
+			"Score": 40,
+			"ImageName": "enemyBlack4"
+		},
+		{
+			"key": 5,
+			"Hp": 9,
+			"Score": 50,
+			"ImageName": "enemyBlack5"
+		}
+	]
+}

@@ -11,14 +11,10 @@ public class GameScene : Singleton<GameScene>
     [SerializeField]
     private SpawnManager spawnManager;
 
-    [SerializeField]
-    private Player player;
-
     protected override void Awake()
     {
         base.Awake();
         TableLoader.LoadAllData();
-
         Debug.Log("이이잉 : " + EnemyData.Get(1).Key);
 
         SetPlayCompoenent(false);
@@ -26,11 +22,18 @@ public class GameScene : Singleton<GameScene>
 
     public void StartGame()
     {
+        MainMenu.Instance.gameObject.SetActive(false);
+
+        var playerPrefab = Resources.Load("Prefab/Player") as GameObject;
+        var playerObject = Instantiate(playerPrefab);
+        playerObject.GetComponent<Player>().enabled = false;
+
         var playerSequence = DOTween.Sequence();
-        playerSequence.Append(player.transform.DOMoveY(-4f, 1f));
+        playerSequence.Append(playerObject.transform.DOMoveY(-3f, 1f));
         playerSequence.AppendCallback(() =>
         {
             IsGameStart = true;
+            playerObject.GetComponent<Player>().enabled = true;
             SetPlayCompoenent(true);
         });
     }
@@ -38,14 +41,13 @@ public class GameScene : Singleton<GameScene>
     public void GameOver()
     {
         IsGameStart = false;
-
         SetPlayCompoenent(false);
     }
 
     private void SetPlayCompoenent(bool isOn)
     {
         spawnManager.enabled = isOn;
-        player.enabled = isOn;
         GameHUD.Instance.gameObject.SetActive(isOn);
+        MainMenu.Instance.gameObject.SetActive(!isOn);
     }
 }
