@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class GameScene : Singleton<GameScene>
@@ -40,6 +41,7 @@ public class GameScene : Singleton<GameScene>
 
     public void GameOver()
     {
+        StartCoroutine(SendScore());
         IsGameStart = false;
         SetPlayCompoenent(false);
     }
@@ -49,5 +51,25 @@ public class GameScene : Singleton<GameScene>
         spawnManager.enabled = isOn;
         GameHUD.Instance.gameObject.SetActive(isOn);
         MainMenu.Instance.gameObject.SetActive(!isOn);
+    }
+
+    private IEnumerator SendScore()
+    {
+        var form = new WWWForm();
+        form.AddField("name", SystemInfo.deviceName);
+        form.AddField("score", GameHUD.Instance.Score);
+
+        var request = UnityWebRequest.Post("http://127.0.0.1:3000/registerScore", form);
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            Debug.Log("<get>" + request.downloadHandler.text + "</get>");
+        }
     }
 }

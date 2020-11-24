@@ -5,18 +5,17 @@ using UnityEngine.UI;
 
 public class GameHUD : UI<GameHUD>
 {
-    private int score;
-    private Text scoreText;
+    public int Score { get; private set; }
 
     protected override void Awake()
     {
-        score = 0;
+        Score = 0;
         base.Awake();
     }
 
     public void AddScore(int additionalscore)
     {
-        this.score += additionalscore;
-        Eliment["ScoreText"].GetComponent<Text>().text = $"Score : {score}";
+        this.Score += additionalscore;
+        Eliment["ScoreText"].GetComponent<Text>().text = $"Score : {Score}";
     }
 }
