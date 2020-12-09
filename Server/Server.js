@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,9 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : process.env.PASSWORD,
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USERNAME,
+  password : process.env.DB_PASSWORD,
   database : 'top_shooting'
 });
 connection.connect();
@@ -61,3 +64,5 @@ app.post('/registerScore', (req, res, next) => {
 app.listen(port, () => {
     console.log(`server is listening at localhost:${port}`);
 });
+
+console.log("노드몬 ㄹㅇㅋㅋ");
