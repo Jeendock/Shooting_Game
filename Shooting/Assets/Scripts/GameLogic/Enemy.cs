@@ -14,13 +14,13 @@ public class Enemy : CollisionObject
         enemyDataKey = Random.Range(1, EnemyData.All.Length + 1);
         hp = enemyData.Hp;
 
-        MovementVector = new Vector2(0, -0.07f);
+        MovementVector = new Vector2(0, -0.1f);
 
         var sprite = Resources.Load<Sprite>($"Images/Enemies/{ enemyData.ImageName}");
         GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.GetComponent<Player>() != null)
         {
@@ -43,8 +43,7 @@ public class Enemy : CollisionObject
 
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
-            //enemeyObject.transform.position = transform.position;
-            //Destroy(gameObject);
+            enemeyObject.transform.position = transform.position;
 
             GameHUD.Instance.AddScore(enemyData.Score);
 

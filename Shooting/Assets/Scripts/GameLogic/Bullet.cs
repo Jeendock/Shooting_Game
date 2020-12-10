@@ -10,7 +10,7 @@ public class Bullet : CollisionObject
         MovementVector = new Vector2(0, 0.1f);
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.name == "Wall")
         {
@@ -18,7 +18,7 @@ public class Bullet : CollisionObject
         }
         if (collision.gameObject.GetComponent<Enemy>() != null)
         {
-            collision.gameObject.GetComponent<Enemy>().DecreaseHP(2);
+            collision.gameObject.GetComponent<Enemy>().DecreaseHP(5);
             Destroy(gameObject);
         }
     }

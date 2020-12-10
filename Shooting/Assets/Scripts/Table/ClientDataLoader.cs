@@ -18,7 +18,7 @@ public class ClientDataLoader
 
     public static T[] LoadJson<T>(string fileName)
     {
-        TextAsset textAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/Tables/json/{fileName}.json");
+        TextAsset textAsset = Resources.Load<TextAsset>($"Json/{fileName}");
 
         using (var reader = new JsonTextReader(new StringReader(textAsset.text)))
         {

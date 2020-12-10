@@ -69,7 +69,7 @@ public class Player : CollisionObject
         bullet_Object.transform.position = transform.position;
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
     }
 }
