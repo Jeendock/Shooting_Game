@@ -1429,6 +1429,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 7793495425767385695, guid: 1e1728191d090fc48844305ec55769b4,
+        type: 3}
+      propertyPath: m_Text
+      value: Game Start
+      objectReference: {fileID: 0}
     - target: {fileID: 7793495426424556044, guid: 1e1728191d090fc48844305ec55769b4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
