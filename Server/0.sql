@@ -1,0 +1,1 @@
+INSERT INTO top_shooting.userscores VALUES("test", 1000) ON DUPLICATE KEY UPDATE score = 2000;
